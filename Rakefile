@@ -5,3 +5,6 @@
 require File.expand_path('../config/application', __FILE__)
 
 SampleApp::Application.load_tasks
+
+ENV['postion_in_class'] = 'before'
+ENV['postion_in_fixture'] = 'before'
