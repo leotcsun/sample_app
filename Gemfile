@@ -11,6 +11,7 @@ gem 'sqlite3'
 gem 'execjs'
 gem 'therubyracer'
 gem 'pg'
+gem 'will_paginate'
 
 gem 'gravatar_image_tag'
 
@@ -27,6 +28,7 @@ gem 'jquery-rails'
 group :development do
   gem 'rspec-rails'
   gem 'annotate', '~> 2.4.1.beta'
+  gem 'faker'
 end
 
 group :test do
