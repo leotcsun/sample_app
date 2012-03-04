@@ -7,6 +7,43 @@ describe UsersController do
     @base_title = 'Ruby on Rails Tutorial Sample App'
   end
 
+  describe 'GET index' do
+
+    describe 'for non-signed-in users' do
+      it 'should deny access' do
+        get :index
+        response.should redirect_to(signin_path)
+      end
+    end
+
+    describe 'for signed-in users' do
+
+      before(:each) do
+        @user = test_sign_in(Factory(:user))
+        Factory(:user, :email => 'newuser1@example.com')
+        Factory(:user, :email => 'newuser2@example.com')
+      end
+
+      it 'should be successful' do
+        get :index
+        response.should be_success
+      end
+
+      it 'should have the right title' do
+        get :index
+        response.should have_selector('title', :content => 'All users')
+      end
+
+      it 'should have an element for each user' do
+        get :index
+        User.all.each do |user|
+          response.should have_selector('li', :content => user.name)
+        end
+      end
+    end
+  end
+
+
   describe "GET 'show'" do
 
     before(:each) do
