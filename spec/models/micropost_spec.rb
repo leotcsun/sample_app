@@ -51,6 +51,7 @@ describe Micropost do
     it 'should reject long content' do
       @user.microposts.build(:content => "a" * 141).should_not be_valid
     end
+  end
 
 end
 
