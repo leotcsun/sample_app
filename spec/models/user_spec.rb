@@ -8,6 +8,8 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  encrypted_password :string(255)
+#  salt               :string(255)
+#  admin              :boolean         default(FALSE)
 #
 
 require 'spec_helper'
@@ -85,7 +87,7 @@ describe User do
     it 'should have a password confirmation' do
       @user.should respond_to(:password_confirmation)
     end
-  end 
+  end
 
   describe 'password validation' do
     it 'should require a password' do
@@ -101,7 +103,7 @@ describe User do
       hash = @attr.merge(:password => short, :password_confirmation => short)
       User.new(hash).should_not be_valid
     end
-       
+
     it 'should reject long password' do
       long = 'a' * 41
       hash = @attr.merge(:password => long, :password_confirmation => long)
@@ -158,8 +160,25 @@ describe User do
         User.authenticate(@attr[:email], @attr[:password]).should == @user
       end
     end
-
   end
 
+  describe 'admin attribute' do
 
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it 'should respond to admin' do
+      @user.should respond_to(:admin)
+    end
+
+    it 'should be not an admin by default' do
+      @user.should_not be_admin
+    end
+
+    it 'should be convertible to an admin' do
+      @user.toggle!(:admin)
+      @user.should be_admin
+    end
+  end
 end
