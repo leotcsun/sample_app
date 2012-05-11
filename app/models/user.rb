@@ -32,7 +32,11 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
 
   def has_password?(submitted_password)
-    self.encrypted_password == encrypt(submitted_password)
+    encrypted_password == encrypt(submitted_password)
+  end
+
+  def feed
+    Micropost.where("user_id = ?", id)
   end
 
   class << self
