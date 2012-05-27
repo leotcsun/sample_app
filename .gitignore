@@ -13,6 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /*.log
+/webrat.log
 /tmp
 
 tmp/**/*
@@ -21,4 +22,5 @@ doc/api
 doc/app
 *.swp
 *~
+.gitignore
 
